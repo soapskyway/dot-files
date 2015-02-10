@@ -103,3 +103,6 @@
 [submodule ".vim/bundle/vim-rbenv"]
 	path = .vim/bundle/vim-rbenv
 	url = https://github.com/tpope/vim-rbenv.git
+[submodule ".vim/bundle/vim-tmux"]
+	path = .vim/bundle/vim-tmux
+	url = git://github.com/tsaleh/vim-tmux.git
