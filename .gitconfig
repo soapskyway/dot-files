@@ -1,10 +1,10 @@
 [user]
-  name  = Chris Hunt
-  email = c@chrishunt.co
+  name  = Petter Edblom
+  email = petter.edblom@gmail.com
 [github]
-  user = chrishunt
+  user = soapskyway
 [credential]
-  helper = /opt/boxen/bin/boxen-git-credential
+  helper = osxkeychain
 [hub]
   protocol = https
 [core]
@@ -13,9 +13,9 @@
   editor = vim -f
   autocrlf = input
   safecrlf = true
-  excludesfile = /Users/chris/.global_gitignore
+  excludesfile = /Users/petter/.global_gitignore
 [advice]
-  statusHints = false
+  statusHints = true
 [web]
   browser = open
 [push]

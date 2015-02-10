@@ -32,41 +32,15 @@ set wildmode=list:longest,full
 runtime macros/matchit.vim        " use % to jump between start/end of methods
 
 " put git status, column/row number, total lines, and percentage in status
-set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
+" set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
+" set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+set statusline=%F\ [%{strlen(&fenc)?&fenc:'none'}]%h%m%r%y%=%l/%L\ %P
 
 " set dark background and color scheme
-set background=dark
-colorscheme base16-railscasts
-
-" set up some custom colors
-highlight clear SignColumn
-highlight VertSplit    ctermbg=236
-highlight ColorColumn  ctermbg=237
-highlight LineNr       ctermbg=236 ctermfg=240
-highlight CursorLineNr ctermbg=236 ctermfg=240
-highlight CursorLine   ctermbg=236
-highlight StatusLineNC ctermbg=238 ctermfg=0
-highlight StatusLine   ctermbg=240 ctermfg=12
-highlight IncSearch    ctermbg=3   ctermfg=1
-highlight Search       ctermbg=1   ctermfg=3
-highlight Visual       ctermbg=3   ctermfg=0
-highlight Pmenu        ctermbg=240 ctermfg=12
-highlight PmenuSel     ctermbg=3   ctermfg=1
-highlight SpellBad     ctermbg=0   ctermfg=1
-
-" highlight the status bar when in insert mode
-if version >= 700
-  au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
-  au InsertLeave * hi StatusLine ctermbg=240 ctermfg=12
-endif
-
-" highlight trailing spaces in annoying red
-highlight ExtraWhitespace ctermbg=1 guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+" :q
+" set background=dark
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme spacegray
 
 " set leader key to comma
 let mapleader = ","
@@ -78,7 +52,7 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 0
 
 " use silver searcher for ctrlp
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 " unmap F1 help
 nmap <F1> <nop>
@@ -111,11 +85,6 @@ imap <F5> <ESC>:setlocal spell! spelllang=en_us<cr>
 " add :Plain command for converting text to plaintext
 command! Plain execute "%s/’/'/ge | %s/[“”]/\"/ge | %s/—/-/ge"
 
-" hint to keep lines short
-if exists('+colorcolumn')
-  set colorcolumn=80
-endif
-
 " jump to last position in file
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -145,55 +114,3 @@ function! RenameFile()
   endif
 endfunction
 map <leader>n :call RenameFile()<cr>
-
-function! RunTests(filename)
-  " Write the file and run tests for the given filename
-  :w
-  :silent !clear
-  if match(a:filename, '\.feature$') != -1
-    exec ":!bundle exec cucumber " . a:filename
-  elseif match(a:filename, '_test\.rb$') != -1
-    if filereadable("bin/testrb")
-      exec ":!bin/testrb " . a:filename
-    else
-      exec ":!ruby -Itest " . a:filename
-    end
-  else
-    if filereadable("Gemfile")
-      exec ":!bundle exec rspec --color " . a:filename
-    else
-      exec ":!rspec --color " . a:filename
-    end
-  end
-endfunction
-
-function! SetTestFile()
-  " set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-
-  " run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number . " -b")
-endfunction
-
-" run test runner
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
