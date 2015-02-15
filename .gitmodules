@@ -106,3 +106,6 @@
 [submodule ".vim/bundle/vim-tmux"]
 	path = .vim/bundle/vim-tmux
 	url = git://github.com/tsaleh/vim-tmux.git
+[submodule ".vim/bundle/rust-vim"]
+	path = .vim/bundle/rust-vim
+	url = https://github.com/wting/rust.vim.git
