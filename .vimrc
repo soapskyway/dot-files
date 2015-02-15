@@ -67,6 +67,9 @@ vnoremap . :norm.<cr>
 " map markdown preview
 map <leader>m :!open -a Marked %<cr><cr>
 
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
 " map git commands
 map <leader>b :Gblame<cr>
 map <leader>l :!clear && git log -p %<cr>
