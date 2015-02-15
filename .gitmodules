@@ -109,3 +109,6 @@
 [submodule ".vim/bundle/rust-vim"]
 	path = .vim/bundle/rust-vim
 	url = https://github.com/wting/rust.vim.git
+[submodule ".vim/bundle/clang_complete"]
+	path = .vim/bundle/clang_complete
+	url = https://github.com/Rip-Rip/clang_complete.git

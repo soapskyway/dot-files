@@ -45,6 +45,12 @@ colorscheme spacegray
 " set leader key to comma
 let mapleader = ","
 
+let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+let g:clang_user_options = '-std=c++11'
+if isdirectory(s:clang_library_path)
+    let g:clang_library_path=s:clang_library_path
+endif
+
 " ctrlp config
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
@@ -53,6 +59,13 @@ let g:ctrlp_match_window_reversed = 0
 
 " use silver searcher for ctrlp
 " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+" quick out of insert mode
+imap jj <Esc>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " unmap F1 help
 nmap <F1> <nop>
