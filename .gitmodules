@@ -112,3 +112,6 @@
 [submodule ".vim/bundle/clang_complete"]
 	path = .vim/bundle/clang_complete
 	url = https://github.com/Rip-Rip/clang_complete.git
+[submodule ".vim/bundle/vim-multiple-cursors"]
+	path = .vim/bundle/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors.git

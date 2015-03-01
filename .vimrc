@@ -8,8 +8,8 @@ call pathogen#helptags()
 syntax on                         " show syntax highlighting
 filetype plugin indent on
 set autoindent                    " set auto indent
-set ts=2                          " set indent to 2 spaces
-set shiftwidth=2
+set ts=4                          " set indent to 2 spaces
+set shiftwidth=4
 set expandtab                     " use spaces, not tab characters
 set nocompatible                  " don't need to be compatible with old vim
 set relativenumber                " show relative line numbers
@@ -45,6 +45,7 @@ colorscheme spacegray
 " set leader key to comma
 let mapleader = ","
 
+" clang settings
 let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
 let g:clang_user_options = '-std=c++11'
 if isdirectory(s:clang_library_path)
@@ -62,6 +63,14 @@ let g:ctrlp_match_window_reversed = 0
 
 " quick out of insert mode
 imap jj <Esc>
+
+" swedish characters
+map <silent> å <C-]>
+map! <silent> ö {
+map! <silent> ä }
+map! <silent> Ö [
+map! <silent> Ä ]
+set langmap=ö{,ä},Ö[,Ä]
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -116,6 +125,7 @@ function! InsertTabWrapper()
     return "\<c-p>"
   endif
 endfunction
+
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
